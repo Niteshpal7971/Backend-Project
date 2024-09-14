@@ -1,7 +1,7 @@
 /.vscode
 /node_modules
 ./dist
-
+/src/db/index.js
 *.env
 .env
 .env.*

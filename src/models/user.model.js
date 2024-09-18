@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { JsonWebTokenError } from "jsonwebtoken";
+import { jwt } from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 const UsesrSchema = new Schema(
@@ -53,12 +53,12 @@ const UsesrSchema = new Schema(
 UsesrSchema.pre("save", async function(next){
     if(!this.isModified("password")) return next();
 
-    this.password = bycript.hash(this.password, 10)
+    this.password = bcrypt.hash(this.password, 10)
     next()
 })
 
 UsesrSchema.methods.isPasswordCorrect = async function(password) {
-   return await bycript.compare(password, this.password)    
+   return await bcrypt.compare(password, this.password)    
 }
 
 UsesrSchema.methods.generateAccessToken = async function(){
